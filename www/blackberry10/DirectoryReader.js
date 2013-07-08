@@ -37,7 +37,7 @@ DirectoryReader.prototype.readEntries = function(successCallback, errorCallback)
         fail = typeof errorCallback !== 'function' ? null : function(code) {
             errorCallback(new FileError(code));
         };
-    fileUtils.getEntryForURI(this.path, function (entry) {
+    resolveLocalFileSystemURI("filesystem:local:///persistent/" + this.path, function (entry) {
         entry.nativeEntry.createReader().readEntries(win, fail);
     }, function () {
         fail(FileError.NOT_FOUND_ERR);
